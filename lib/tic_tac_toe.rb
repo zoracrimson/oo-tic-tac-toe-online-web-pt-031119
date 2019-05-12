@@ -9,9 +9,11 @@ class TicTacToe
     [0,4,8],
     [2,4,6]
   ]
+  
   def initialize()
-    @board =  Array.new(9," ")
+    @board = []
   end
+  
   def display_board
     puts " #{@board[0]} | #{@board[1]} | #{@board[2]} "
     puts "-----------"
@@ -19,19 +21,22 @@ class TicTacToe
     puts "-----------"
     puts " #{@board[6]} | #{@board[7]} | #{@board[8]} "
   end
+  
   def input_to_index(user_input)
     user_input.to_i - 1
   end
   def move(index, current_player)
     @board[index] = current_player
   end
+  
   def position_taken?(location)
     @board[location] != " " && @board[location] != ""
   end
 
-   def valid_move?(index)
+  def valid_move?(index)
     index.between?(0,8) && !position_taken?(index)
   end
+  
   def turn
     puts "Please enter 1-9:"
     input = gets.strip
@@ -43,6 +48,7 @@ class TicTacToe
       turn
     end
   end
+  
   def turn_count
     turn_count = 0
     @board.each do |slot|
@@ -52,6 +58,7 @@ class TicTacToe
     end
     turn_count
   end
+  
   def current_player
     turn_count%2==0 ? "X" : "O"
   end
@@ -61,15 +68,19 @@ class TicTacToe
         end
   odp ? odp : false
   end
+  
   def full?
     @board.all?{|slot| slot == "X" || slot == "O"}? true : false
   end
+  
   def draw?
     won? ? false : full? ? true : false
   end
+  
   def over?
     won? || draw? || full?
   end
+  
   def winner
     win = won?
     if(!win)
@@ -78,6 +89,7 @@ class TicTacToe
       @board[win[0]]
     end
   end
+  
   def play
     until over?
       turn
